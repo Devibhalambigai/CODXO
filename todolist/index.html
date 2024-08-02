@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>codxo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>TASK 1 : TO DO LIST </h1>
+    <div class="container">
+        <!-- <h1>TASK 1 : TO DO LIST </h1> -->
+        <form id="todo-form">
+            <input type="text" id="todo-input" placeholder="Add a new task" required>
+            <button type="submit">Add</button>
+        </form>
+        <ul id="todo-list"></ul>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('todo-form');
+            const input = document.getElementById('todo-input');
+            const todoList = document.getElementById('todo-list');
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                addTask(input.value);
+                input.value = '';
+            });
+
+            function addTask(taskText) {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <span>${taskText}</span>
+                    <div>
+                        <button class="delete-btn">Delete</button>
+                    </div>
+                `;
+                todoList.appendChild(li);
+
+                const deleteBtn = li.querySelector('.delete-btn');
+                deleteBtn.addEventListener('click', () => deleteTask(li));
+            }
+
+            function deleteTask(li) {
+                todoList.removeChild(li);
+            }
+        });
+    </script>
+</body>
+</html>
